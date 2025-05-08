@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        -  airt-in-practice.westus3.cloudapp.azure.com
+      secretName: airt-practice-tls
+  rules:
+    - host: airt-in-practice.westus3.cloudapp.azure.com
+      http:
+        paths:
+        - path: /challenge/1/(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: chat-copilot-service
+              port:
+                name: web-port

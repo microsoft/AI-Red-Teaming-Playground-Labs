@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-scoring
+  labels:
+    app: chat-scoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chat-scoring
+  template:
+    metadata:
+      labels:
+        app: chat-scoring
+    spec:
+      containers:
+        - env:
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: chat-score-secrets
+                  key: redis-url
+
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: chat-score-secrets
+                  key: secret-key
+            
+            - name: SCORING_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: chat-copilot-secrets
+                  key: scoring_apikey
+
+          image: chat-scoring:prod
+          name: chat-scoring
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+              name: http-web-svc
+      restartPolicy: Always

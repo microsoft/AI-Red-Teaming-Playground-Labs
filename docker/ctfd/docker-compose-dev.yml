@@ -1,0 +1,21 @@
+# Docker compose to spin up a dev environment for ctfd
+
+version: "3"
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+  ctfd:
+    image: ctfd:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - 8000:8000
+    depends_on:
+      - redis

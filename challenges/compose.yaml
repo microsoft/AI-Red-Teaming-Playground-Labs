@@ -1,0 +1,48 @@
+# Template for the generated docker-compose.yml file based on the challenges.json file.
+services:
+  challenge-home:
+    build:
+      context: .
+      dockerfile: docker/challenge-home/Dockerfile
+    ports:
+      - 127.0.0.1:5000:5000
+    environment:
+      - AUTH_KEY=${AUTH_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+      - OPEN_LINK_NEW_TAB=true
+    volumes:
+      - ./docker/data/challenge-home/data.json:/app/build/data.json:ro
+  
+  chat-copilot:
+    build:
+      context: .
+      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    ports:
+      - 127.0.0.1:4000:4000
+    environment:
+      - KernelMemory__Services__AzureOpenAIEmbedding__APIKey=${AOAI_API_KEY}
+      - KernelMemory__Services__AzureOpenAIEmbedding__Endpoint=${AOAI_ENDPOINT}
+      - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
+      - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
+      - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
+      
+      - KernelMemory__ImageOcrType=Tesseract
+      - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
+      
+      - ChatStore__Type=filesystem
+      - Challenge__MetapromptLeak=false
+      - Challenge__PluginsControl=false
+      - Challenge__Upload=false
+      - Challenge__AuthType=ChallengeHome
+  
+      - Challenge__ChallengeHome__SecretKey=${SECRET_KEY}
+  
+      - Planner__Model=${AOAI_MODEL_NAME}
+      - AllowedOrigins=http://localhost:5000
+      
+      - Kestrel__Endpoints__Http__Url=http://0.0.0.0:4000
+      - PrometheusTelemetry__Endpoint=http://0.0.0.0:4001
+      
+      - ASPNETCORE_ENVIRONMENT=Production
+    volumes:
+     - ./docker/data/chat-copilot/appsettings.json:/app/appsettings.Production.json:ro

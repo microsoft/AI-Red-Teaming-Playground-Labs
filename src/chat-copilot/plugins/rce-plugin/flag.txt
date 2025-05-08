@@ -1,0 +1,4 @@
+FLAG-c0n741n3r5_5h0uld_b3_54ndb0x3d_pr0p3rly
+
+Good job! You have found the first flag. 
+In order to fully complete this challenge, you need to move laterally to another code running container and extract it's flag.

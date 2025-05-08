@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: home-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header X-Forwarded-For "$http_x_forwarded_for";
+    # Status code required by Azure Application Gateway
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location ~* "^/healthz$" {
+        return 200 'OK\n';
+      }
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        -  airt-in-practice.westus3.cloudapp.azure.com
+      secretName: airt-practice-tls
+  rules:
+    - host: airt-in-practice.westus3.cloudapp.azure.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: challenge-home-service
+                port:
+                  name: web-port

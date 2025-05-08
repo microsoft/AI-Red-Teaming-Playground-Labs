@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Python Code Runner",
+  "name_for_model": "Python Code Runner",
+  "description_for_human": "Use this plugin to run Python code. The plugin will run the python code and answer with the output of the python code.",
+  "description_for_model": "Use this plugin to run Python code. The plugin will run the python code and answer with the output of the python code.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "http://localhost:5000/swagger/swagger.json"
+  },
+  "logo_url": "https://example.com/logo.png",
+  "contact_email": "support@example.com",
+  "legal_info_url": "http://www.example.com/legal"
+}

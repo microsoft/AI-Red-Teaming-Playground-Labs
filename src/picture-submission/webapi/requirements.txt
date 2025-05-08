@@ -1,0 +1,37 @@
+azure-core==1.30.2
+azure-identity==1.17.1
+azure-storage-blob==12.22.0
+blinker==1.8.2
+certifi==2024.8.30
+cffi==1.17.1
+charset-normalizer==3.3.2
+click==8.1.7
+colorama==0.4.6
+cryptography==43.0.1
+dataclasses-json==0.6.7
+Flask==3.0.3
+Flask-Cors==5.0.0
+idna==3.8
+isodate==0.6.1
+itsdangerous==2.2.0
+Jinja2==3.1.4
+MarkupSafe==2.1.5
+marshmallow==3.22.0
+msal==1.30.0
+msal-extensions==1.2.0
+mypy-extensions==1.0.0
+packaging==24.1
+portalocker==2.10.1
+pycparser==2.22
+PyJWT==2.9.0
+python-magic==0.4.27
+python-magic-bin==0.4.14; platform_system == "Windows"
+pywin32==306; platform_system == "Windows"
+redis==5.0.8
+requests==2.32.3
+six==1.16.0
+typing-inspect==0.9.0
+typing_extensions==4.12.2
+urllib3==2.2.2
+Werkzeug==3.0.4
+StrEnum==0.4.15

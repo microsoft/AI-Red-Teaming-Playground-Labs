@@ -1,0 +1,60 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority
+value: 1000000
+globalDefault: false
+description: "This priority class should be used for CTFd service pods only."
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ctfd
+  labels:
+    app: ctfd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ctfd
+  template:
+    metadata:
+      labels:
+        app: ctfd
+    spec:
+      containers:
+        - env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ctfd-secrets
+                  key: secret-key
+
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ctfd-secrets
+                  key: postgres-connection-string
+
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ctfd-secrets
+                  key: redis-connection-string
+
+            - name: WORKERS
+              value: "4"
+
+            - name: REVERSE_PROXY
+              value: "True"
+
+            - name: RATE_LIMITING_DISABLED
+              value: "True"
+
+          image: ctfd:latest
+          name: ctfd
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+              name: http-web-svc
+      priorityClassName: high-priority

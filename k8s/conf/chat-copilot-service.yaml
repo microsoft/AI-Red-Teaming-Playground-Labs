@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chat-copilot-service
+spec:
+  selector:
+    app: chat-copilot
+  ports:
+    - name: web-port
+      protocol: TCP
+      port: 4000
+      targetPort: http-web-svc

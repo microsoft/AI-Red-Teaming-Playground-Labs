@@ -1,0 +1,6 @@
+.main-app {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: calc(100vh - 45px);
+}

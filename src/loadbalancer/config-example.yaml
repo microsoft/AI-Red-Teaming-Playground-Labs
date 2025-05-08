@@ -1,0 +1,19 @@
+reverseProxy:
+  host: ""
+  port: 8080
+  tokenCutoff: 500
+  # authKey: "TODO PUT YOUR AUTH KEY HERE"
+
+endpoints:
+# TODO: Add your own endpoints here
+# 
+#  - url: "http://example.com"
+#    key: "key"
+#    type: "azure"
+#    models:
+#      - name: "gpt-4o"
+#        capacityToken: 150000
+#        capacityRequest: 900
+#      - name: "text-embedding-ada-002"
+#        capacityToken: 240000
+#        capacityRequest: 1440

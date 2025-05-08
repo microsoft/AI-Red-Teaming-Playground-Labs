@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: challenge-home
+  labels:
+    app: challenge-home
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: challenge-home
+  template:
+    metadata:
+      labels:
+        app: challenge-home
+    spec:
+      containers:
+        - image: challenge-home:prod
+          imagePullPolicy: Always
+          name: chat-copilot
+          ports:
+            - containerPort: 5000
+              name: http-web-svc
+          volumeMounts:
+            - mountPath: /app/build/data.json
+              name: data-json
+              subPath: data.json
+              readOnly: true
+
+          env:
+            - name: EXPIRATION
+              value: "86400"
+
+            - name: AUTH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: challenge-home-secret
+                  key: auth_key
+            
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: challenge-home-secret
+                  key: secret_key
+      volumes:
+        - name: data-json
+          configMap:
+            name: challenge-home-conf
+            items:
+              - key: data.json
+                path: data.json

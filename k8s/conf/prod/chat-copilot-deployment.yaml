@@ -1,0 +1,174 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-copilot
+  labels:
+    app: chat-copilot
+    azure.workload.identity/use: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chat-copilot
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: '/metrics'
+        prometheus.io/port: '4001'
+      labels:
+        app: chat-copilot
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: chat-copilot-sa
+      containers:
+        - env:
+            # Data needed for the workload identity
+            - name: AZURE_CLIENT_ID 
+              value: "5c4d67ad-9f91-4468-bcd3-c758fddaca71"
+
+            - name: AZURE_TENANT_ID
+              value: "b84f3a99-6914-493e-be3e-2ac051b3f61b"
+
+            - name: Challenge__MetapromptLeak
+              valueFrom:
+                configMapKeyRef:
+                  name: chat-copilot-conf
+                  key: metaprompt_leak
+            
+            - name: Challenge__Name
+              valueFrom:
+                configMapKeyRef:
+                  name: chat-copilot-conf
+                  key: challenge_name
+            
+            - name: Challenge__PluginsControl
+              valueFrom:
+                configMapKeyRef:
+                  name: chat-copilot-conf
+                  key: plugins_control
+
+            - name: Challenge__Upload
+              valueFrom:
+                configMapKeyRef:
+                  name: chat-copilot-conf
+                  key: upload
+
+            # Human scorer will be removed in deploy.py if it's not enabled.
+            - name: Challenge__HumanScorer__ApiKey
+              valueFrom:
+                secretKeyRef:
+                  name: chat-copilot-secrets
+                  key: scoring_apikey
+
+#            - name: Challenge__Ctfd__RedirectUrl
+#              value: "https://airt-in-practice.westus3.cloudapp.azure.com/login"
+#            
+#            - name: Challenge__Ctfd__CtfdUrl
+#              value: "http://ctfd-service:8000"#
+
+#            - name: Challenge__Ctfd__RedisDatabase
+#              value: "1"#
+
+#            - name: Challenge__Ctfd__RedisConnectionString
+#              valueFrom:
+#                secretKeyRef:
+#                  name: ctfd-secrets
+#                  key: redis-connection-string-stackexchange#
+
+#            - name: Challenge__Ctfd__SecretKey
+#              valueFrom:
+#                secretKeyRef:
+#                  name: ctfd-secrets
+#                  key: secret-key
+            
+            - name: Challenge__AuthType
+              value: ChallengeHome
+
+            - name: Challenge__ChallengeHome__SecretKey
+              valueFrom:
+                secretKeyRef:
+                  name: challenge-home-secret
+                  key: secret_key
+          
+            - name: KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__
+              value: AzureOpenAI
+
+            - name: KernelMemory__Services__AzureOpenAIEmbedding__APIKey
+              valueFrom:
+                secretKeyRef:
+                  name: chat-copilot-secrets
+                  key: apikey
+
+            - name: KernelMemory__Services__AzureOpenAIEmbedding__Endpoint
+              value: https://loadbalancer-service/
+
+            - name: KernelMemory__Services__AzureOpenAIText__APIKey
+              valueFrom:
+                secretKeyRef:
+                  name: chat-copilot-secrets
+                  key: apikey
+
+            - name: KernelMemory__Services__AzureOpenAIText__Deployment
+              valueFrom:
+                configMapKeyRef:
+                  name: chat-copilot-conf
+                  key: open_ai_text_deployment
+
+            - name: KernelMemory__Services__AzureOpenAIText__Endpoint
+              value: https://loadbalancer-service/
+            
+            - name: KernelMemory__ImageOcrType
+              value: Tesseract
+            
+            - name: ChatStore__Type
+              value: cosmos
+
+            - name: ChatStore__Cosmos__ConnectionString
+              value: "COSMOS_URL"
+            
+            - name: ChatStore__Cosmos__IsEndpoint
+              value: "true"
+            
+            - name: ChatStore__Cosmos__Database
+              valueFrom:
+                configMapKeyRef:
+                  name: chat-copilot-conf
+                  key: cosmos_database
+
+            - name: Planner__Model
+              value: gpt-4o-blackhat
+
+            - name: AllowedOrigins
+              value: https://airt-in-practice.westus3.cloudapp.azure.com/login
+
+            - name: Kestrel__Endpoints__Http__Url
+              value: http://0.0.0.0:4000
+            
+            - name: PrometheusTelemetry__Endpoint
+              value: http://0.0.0.0:4001
+            
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production
+
+          image: chat-copilot:prod
+          imagePullPolicy: Always
+          name: chat-copilot
+          ports:
+            - containerPort: 4000
+              name: http-web-svc
+            - containerPort: 4001
+              name: prometheus-svc
+          volumeMounts:
+            - mountPath: /app/appsettings.Production.json
+              name: apsettings-prod-conf
+              subPath: appsettings.Production.json
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: apsettings-prod-conf
+          configMap:
+            name: chat-copilot-conf
+            items:
+              - key: appsettings.Production.json
+                path: appsettings.Production.json

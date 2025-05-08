@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: chat-scoring-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth-score
+    nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+    # Ensure long-lived connections for EventSource
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        -  airt-in-practice.westus3.cloudapp.azure.com
+      secretName: airt-practice-tls
+  rules:
+    - host: airt-in-practice.westus3.cloudapp.azure.com
+      http:
+        paths:
+          - path: /chat-score/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: chat-scoring-service
+                port:
+                  name: web-port

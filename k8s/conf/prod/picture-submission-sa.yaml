@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    azure.workload.identity/client-id: "1a3f8180-4f8c-4f48-a3a0-c650956b0b7d"
+  name: "picture-submission-sa"
+  namespace: "default"

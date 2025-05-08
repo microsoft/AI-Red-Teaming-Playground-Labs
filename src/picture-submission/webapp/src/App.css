@@ -1,0 +1,11 @@
+.main-app {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: calc(100vh - 48px);
+}
+
+div.react-markdown-container img {
+  max-width: 100%;
+  height: auto;
+}

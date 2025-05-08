@@ -1,0 +1,305 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ChatMessageType, IChatMessage, UserFeedback } from '../../../libs/models/ChatMessage';
+import { IChatUser } from '../../../libs/models/ChatUser';
+import { ChatState } from './ChatState';
+import {
+    ConversationInputChange,
+    ConversationLockedChange,
+    ConversationMaxTurnReachedChange,
+    ConversationRagChange,
+    Conversations,
+    ConversationsState,
+    ConversationSystemDescriptionChange,
+    ConversationTitleChange,
+    initialState,
+    UpdatePluginStatePayload,
+} from './ConversationsState';
+
+export const conversationsSlice = createSlice({
+    name: 'conversations',
+    initialState,
+    reducers: {
+        setConversations: (state: ConversationsState, action: PayloadAction<Conversations>) => {
+            state.conversations = action.payload;
+            state.loadedCount = Object.keys(action.payload).length;
+            state.total = state.loadedCount;
+        },
+        setConversationsTotal: (state: ConversationsState, action: PayloadAction<number>) => {
+            state.total = action.payload;
+        },
+        incrementConversationLoaded: (state: ConversationsState) => {
+            state.loadedCount++;
+        },
+        editConversationTitle: (state: ConversationsState, action: PayloadAction<ConversationTitleChange>) => {
+            const id = action.payload.id;
+            const newTitle = action.payload.newTitle;
+            state.conversations[id].title = newTitle;
+            frontLoadChat(state, id);
+        },
+        editConversationInput: (state: ConversationsState, action: PayloadAction<ConversationInputChange>) => {
+            const id = action.payload.id;
+            const newInput = action.payload.newInput;
+            state.conversations[id].input = newInput;
+        },
+        editConversationSystemDescription: (
+            state: ConversationsState,
+            action: PayloadAction<ConversationSystemDescriptionChange>,
+        ) => {
+            const id = action.payload.id;
+            const newSystemDescription = action.payload.newSystemDescription;
+            state.conversations[id].systemDescription = newSystemDescription;
+        },
+        editConversationMemoryBalance: (
+            state: ConversationsState,
+            action: PayloadAction<{ id: string; memoryBalance: number }>,
+        ) => {
+            const id = action.payload.id;
+            const newMemoryBalance = action.payload.memoryBalance;
+            state.conversations[id].memoryBalance = newMemoryBalance;
+        },
+        editConversationLocked: (
+            state: ConversationsState,
+            action: PayloadAction<ConversationLockedChange>,
+        ) => {
+            const id = action.payload.id;
+            const newLocked = action.payload.newLocked;
+            state.conversations[id].locked = newLocked;
+        },
+        editConversationMaxTurnReached: (
+            state: ConversationsState,
+            action: PayloadAction<ConversationMaxTurnReachedChange>,
+        ) => {
+            const id = action.payload.id;
+            const newMaxTurnReached = action.payload.newMaxTurnReached;
+            state.conversations[id].maxTurnReached = newMaxTurnReached;
+        },
+        editConversationRag: ( 
+            state: ConversationsState,
+            action: PayloadAction<ConversationRagChange>,
+        ) => {
+            const id = action.payload.id;
+            state.conversations[id].ragDocument = action.payload.document;
+            state.conversations[id].ragUserInput = action.payload.userInput;
+        },
+        setSelectedConversation: (state: ConversationsState, action: PayloadAction<string>) => {
+            state.selectedId = action.payload;
+        },
+        toggleMultiUserConversations: (state: ConversationsState) => {
+            const keys = Object.keys(state.conversations);
+            keys.forEach((key) => {
+                if (state.conversations[key].users.length > 1) {
+                    state.conversations[key].hidden = !state.conversations[key].hidden;
+                }
+            });
+        },
+        addConversation: (state: ConversationsState, action: PayloadAction<ChatState>) => {
+            const newId = action.payload.id;
+            state.conversations = { [newId]: action.payload, ...state.conversations };
+            state.selectedId = newId;
+        },
+        addUserToConversation: (
+            state: ConversationsState,
+            action: PayloadAction<{ user: IChatUser; chatId: string }>,
+        ) => {
+            const { user, chatId } = action.payload;
+            state.conversations[chatId].users.push(user);
+            state.conversations[chatId].userDataLoaded = false;
+        },
+        setImportingDocumentsToConversation: (
+            state: ConversationsState,
+            action: PayloadAction<{ importingDocuments: string[]; chatId: string }>,
+        ) => {
+            const { importingDocuments, chatId } = action.payload;
+            state.conversations[chatId].importingDocuments = importingDocuments;
+        },
+        setUsersLoaded: (state: ConversationsState, action: PayloadAction<string>) => {
+            state.conversations[action.payload].userDataLoaded = true;
+        },
+        /*
+         * addMessageToConversationFromUser() and addMessageToConversationFromServer() both update the conversations state.
+         * However they are for different purposes. The former action is for updating the conversation from the
+         * webapp and will be captured by the SignalR middleware and the payload will be broadcasted to all clients
+         * in the same group.
+         * The addMessageToConversationFromServer() action is triggered by the SignalR middleware when a response is received
+         * from the webapi.
+         */
+        addMessageToConversationFromUser: (
+            state: ConversationsState,
+            action: PayloadAction<{ message: IChatMessage; chatId: string }>,
+        ) => {
+            const { message, chatId } = action.payload;
+            updateConversation(state, chatId, message);
+        },
+        addMessageToConversationFromServer: (
+            state: ConversationsState,
+            action: PayloadAction<{ message: IChatMessage; chatId: string }>,
+        ) => {
+            const { message, chatId } = action.payload;
+            updateConversation(state, chatId, message);
+        },
+        /*
+         * updateUserIsTyping() and updateUserIsTypingFromServer() both update a user's typing state.
+         * However they are for different purposes. The former action is for updating an user's typing state from
+         * the webapp and will be captured by the SignalR middleware and the payload will be broadcasted to all clients
+         * in the same group.
+         * The updateUserIsTypingFromServer() action is triggered by the SignalR middleware when a state is received
+         * from the webapi.
+         */
+        updateUserIsTyping: (
+            state: ConversationsState,
+            action: PayloadAction<{ userId: string; chatId: string; isTyping: boolean }>,
+        ) => {
+            const { userId, chatId, isTyping } = action.payload;
+            updateUserTypingState(state, userId, chatId, isTyping);
+        },
+        updateUserIsTypingFromServer: (
+            state: ConversationsState,
+            action: PayloadAction<{ userId: string; chatId: string; isTyping: boolean }>,
+        ) => {
+            const { userId, chatId, isTyping } = action.payload;
+            updateUserTypingState(state, userId, chatId, isTyping);
+        },
+        updateBotResponseStatus: (
+            state: ConversationsState,
+            action: PayloadAction<{ chatId: string; status: string | undefined }>,
+        ) => {
+            const { chatId, status } = action.payload;
+            const conversation = state.conversations[chatId];
+            conversation.botResponseStatus = status;
+        },
+        updateMessageProperty: <K extends keyof IChatMessage, V extends IChatMessage[K]>(
+            state: ConversationsState,
+            action: PayloadAction<{
+                property: K;
+                value: V;
+                chatId: string;
+                messageIdOrIndex: string | number;
+                updatedContent?: string;
+                frontLoad?: boolean;
+            }>,
+        ) => {
+            const { property, value, messageIdOrIndex, chatId, updatedContent, frontLoad } = action.payload;
+            const conversation = state.conversations[chatId];
+            const conversationMessage =
+                typeof messageIdOrIndex === 'number'
+                    ? conversation.messages[messageIdOrIndex]
+                    : conversation.messages.find((m) => m.id === messageIdOrIndex);
+
+            if (conversationMessage) {
+                conversationMessage[property] = value;
+                if (updatedContent) {
+                    conversationMessage.content = updatedContent;
+                }
+            }
+
+            if (frontLoad) {
+                frontLoadChat(state, chatId);
+            }
+        },
+        updateLastBotResponse(state: ConversationsState, action: PayloadAction<{ chatId: string; response: string }>) {
+            const { chatId, response } = action.payload;
+
+            //Find the last message from the bot and update it.
+            for (let i = state.conversations[chatId].messages.length - 1; i >= 0; i--) {
+                if (state.conversations[chatId].messages[i].userId === 'Bot') {
+                    state.conversations[chatId].messages[i].content = response;
+                    break;
+                }
+            }
+        },
+        deleteConversation: (state: ConversationsState, action: PayloadAction<string>) => {
+            const keys = Object.keys(state.conversations);
+            const id = action.payload;
+
+            // If the conversation being deleted is the selected conversation, select the first remaining conversation
+            if (id === state.selectedId) {
+                if (keys.length > 1) {
+                    state.selectedId = id === keys[0] ? keys[1] : keys[0];
+                } else {
+                    state.selectedId = '';
+                }
+            }
+
+            const { [id]: _, ...rest } = state.conversations;
+            state.conversations = rest;
+        },
+        disableConversation: (state: ConversationsState, action: PayloadAction<string>) => {
+            const id = action.payload;
+            state.conversations[id].disabled = true;
+            frontLoadChat(state, id);
+            return;
+        },
+        updatePluginState: (state: ConversationsState, action: PayloadAction<UpdatePluginStatePayload>) => {
+            const { id, pluginName, newState } = action.payload;
+            const isPluginEnabled = state.conversations[id].enabledHostedPlugins.find((p) => p === pluginName);
+            if (newState) {
+                if (isPluginEnabled) {
+                    return;
+                }
+                state.conversations[id].enabledHostedPlugins.push(pluginName);
+            } else {
+                if (!isPluginEnabled) {
+                    return;
+                }
+                state.conversations[id].enabledHostedPlugins = state.conversations[id].enabledHostedPlugins.filter(
+                    (p) => p !== pluginName,
+                );
+            }
+        },
+    },
+});
+
+const frontLoadChat = (state: ConversationsState, id: string) => {
+    const conversation = state.conversations[id];
+    const { [id]: _, ...rest } = state.conversations;
+    state.conversations = { [id]: conversation, ...rest };
+};
+
+const updateConversation = (state: ConversationsState, chatId: string, message: IChatMessage) => {
+    const requestUserFeedback = message.userId === 'bot' && message.type === ChatMessageType.Message;
+    state.conversations[chatId].messages.push({
+        ...message,
+        userFeedback: requestUserFeedback ? UserFeedback.Requested : undefined,
+    });
+    frontLoadChat(state, chatId);
+};
+
+const updateUserTypingState = (state: ConversationsState, userId: string, chatId: string, isTyping: boolean) => {
+    const conversation = state.conversations[chatId];
+    const user = conversation.users.find((u) => u.id === userId);
+    if (user) {
+        user.isTyping = isTyping;
+    }
+};
+
+export const {
+    setConversations,
+    setConversationsTotal,
+    incrementConversationLoaded,
+    editConversationTitle,
+    editConversationInput,
+    editConversationSystemDescription,
+    editConversationMemoryBalance,
+    editConversationRag,
+    editConversationMaxTurnReached,
+    setSelectedConversation,
+    toggleMultiUserConversations,
+    addConversation,
+    setImportingDocumentsToConversation,
+    addMessageToConversationFromUser,
+    addMessageToConversationFromServer,
+    updateLastBotResponse,
+    updateMessageProperty,
+    updateUserIsTyping,
+    updateUserIsTypingFromServer,
+    updateBotResponseStatus,
+    setUsersLoaded,
+    deleteConversation,
+    disableConversation,
+    updatePluginState,
+} = conversationsSlice.actions;
+
+export default conversationsSlice.reducer;

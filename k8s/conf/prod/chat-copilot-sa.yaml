@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    azure.workload.identity/client-id: "0a556d11-25d9-482d-8580-5ef54bcd195d"
+  name: "chat-copilot-sa"
+  namespace: "default"

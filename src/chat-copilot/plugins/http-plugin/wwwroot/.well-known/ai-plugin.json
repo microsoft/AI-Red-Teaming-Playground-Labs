@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Http Request",
+  "name_for_model": "HttpRequest",
+  "description_for_human": "Use this plugin to enable users make HTTP GET requests to websites.",
+  "description_for_model": "Use this plugin to enable users make HTTP GET requests to websites. This plugin should only be used if the user passes in a URL to the model.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "http://localhost:5084/swagger/v1/swagger.json"
+  },
+  "logo_url": "https://example.com/logo.png",
+  "contact_email": "support@example.com",
+  "legal_info_url": "http://www.example.com/legal"
+}

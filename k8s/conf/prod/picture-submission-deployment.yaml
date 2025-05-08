@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: picture-submission
+  labels:
+    app: picture-submission
+    azure.workload.identity/use: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: picture-submission
+  template:
+    metadata:
+      # TODO maybe not needed?
+      # annotations:
+      #   prometheus.io/scrape: 'true'
+      #   prometheus.io/path: '/metrics'
+      #   prometheus.io/port: '4001'
+      labels:
+        app: picture-submission
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: picture-submission-sa
+      containers:
+        - env:
+            # Data needed for the workload identity
+            - name: AZURE_CLIENT_ID 
+              value: "5c4d67ad-9f91-4468-bcd3-c758fddaca71"
+
+            - name: AZURE_TENANT_ID
+              value: "b84f3a99-6914-493e-be3e-2ac051b3f61b"
+
+            - name: FLASK_SCORING_SETTINGS__SCORING_ENDPOINT
+              value: "http://chat-scoring-service:5000"
+            
+            - name: FLASK_SCORING_SETTINGS__API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: chat-copilot-secrets
+                  key: scoring_apikey
+            
+            - name: FLASK_AUTH_SETTINGS__TYPE
+              value: "ctfd"
+
+            - name: FLASK_AUTH_SETTINGS__CTFD__REDIRECT_URL
+              value: "https://airt-in-practice.westus3.cloudapp.azure.com/login"
+
+            - name: FLASK_AUTH_SETTINGS__CTFD__CTFD_URL
+              value: "http://ctfd-service:8000"
+            
+            - name: FLASK_AUTH_SETTINGS__CTFD__REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ctfd-secrets
+                  key: redis-connection-string
+
+            - name: FLASK_AUTH_SETTINGS__CTFD__SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ctfd-secrets
+                  key: secret-key
+            
+            - name: FLASK_REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: picture-submission-secrets
+                  key: redis-url
+            
+            - name: FLASK_STORAGE_ACCOUNT_URL
+              value: "BLOB_URL"
+            
+            - name: FLASK_STORAGE_CONTAINER_NAME
+              value: "pictures"
+
+          image: picture-submission:prod
+          imagePullPolicy: Always
+          name: picture-submission
+          ports:
+            - containerPort: 5000
+              name: http-web-svc
+          volumeMounts:
+            - mountPath: /app/config.json
+              name: config-prod-conf
+              subPath: config.json
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: config-prod-conf
+          configMap:
+            name: picture-submission-conf
+            items:
+              - key: config.json
+                path: config.json

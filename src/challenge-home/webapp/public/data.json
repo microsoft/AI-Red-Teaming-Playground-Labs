@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1",
+    "name": "Challenge Name",
+    "description": "challenge description goes here",
+    "category": "Responsible AI"
+  },
+  {
+    "id": "2",
+    "name": "Challenge Name2",
+    "description": "challenge description goes here, challenge description goes herechallenge description goes herechallenge description goes herechallenge description goes herechallenge description goes herechallenge description goes herechallenge description goes here",
+    "category": "Responsible AI"
+  }
+]

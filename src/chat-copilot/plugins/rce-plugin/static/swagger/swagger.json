@@ -1,0 +1,42 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Python Code Runner",
+    "description": "Run Python code and return the output of the code.",
+    "version": "v1"
+  },
+  "paths": {
+    "/execute": {
+      "post": {
+        "tags": [
+          "Http"
+        ],
+        "summary": "Run Python code and return the output of the code.",
+        "operationId": "RunCode",
+        "requestBody": {
+          "description": "The python code should be in the body",
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the response from the code",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {}
+}

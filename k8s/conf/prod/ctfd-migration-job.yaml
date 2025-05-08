@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ctfd-migration-job
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      containers:
+        - name: ctfd-migration-job
+          image: ctfd:latest
+          imagePullPolicy: Always
+          workingDir: /opt/CTFd
+          command: ["python",  "update_challenges.py", "data_migration/challenges.json"]
+          
+          volumeMounts:
+            - mountPath: /opt/CTFd/data_migration/challenges.json
+              name: challenges-json
+              subPath: challenges.json
+              readOnly: true
+          
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ctfd-secrets
+                  key: secret-key
+
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ctfd-secrets
+                  key: postgres-connection-string
+
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ctfd-secrets
+                  key: redis-connection-string
+      restartPolicy: Never
+      volumes:
+        - name: challenges-json
+          configMap:
+            name: ctfd-conf
+            items:
+              - key: challenges.json
+                path: challenges.json
