@@ -24,15 +24,15 @@ parser.add_argument(
 parser.add_argument(
     "--env",
     help="The environment to deploy the databases in",
-    choices=["dev", "prod", "prod2", "local"],
+    choices=["dev", "prod", "local"],
     default="local",
 )
 parser.add_argument("--drop", help="Drop the databases", action="store_true")
 
 args = parser.parse_args()
 
-if args.env == "prod" or args.env == "prod2":
-    COSMOSDB_URI = "COSMOSDB_URI_PROD2"
+if args.env == "prod":
+    COSMOSDB_URI = "COSMOSDB_URI_PROD"
     print("Using prod environment for cosmosdb")
 
 elif args.env == "local":
@@ -103,10 +103,7 @@ async def main():
                     print(f"Skipping challenge {challenge['challenge_id']} with picture")
                     continue
                 
-                if args.env == "prod2":
-                    database_name = "chat-copilot-prod2-" + str(challenge["challenge_id"])
-                else:
-                    database_name = "chat-copilot-" + str(challenge["challenge_id"])
+                database_name = "chat-copilot-" + str(challenge["challenge_id"])
                 if args.drop:
                     pending_tasks.append(
                         delete_database_if_exists(client, database_name)

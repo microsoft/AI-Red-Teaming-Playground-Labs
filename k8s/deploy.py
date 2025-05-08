@@ -3,7 +3,7 @@
 
 """
 Deploy the challenges in kubernetes
-Usage: python deploy.py [-h] [--namespace NAMESPACE] [--env {dev,prod,blackhat}] file
+Usage: python deploy.py [-h] [--namespace NAMESPACE] [--env {dev,prod}] file
 """
 
 import argparse
@@ -24,8 +24,6 @@ def get_name_picture_submission(challenge_id: int) -> str:
     return "picture-submission-" + str(challenge_id)
 
 def get_cosmosdb_name(challenge_id: int, env: str) -> str:
-    if env == "prod2":
-        return "chat-copilot-prod2-" + str(challenge_id)
     return "chat-copilot-" + str(challenge_id)
 
 
@@ -240,7 +238,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--env",
         help="The environment to deploy the challenges in",
-        choices=["dev", "prod", "prod2"],
+        choices=["dev", "prod"],
         default="dev",
     )
 
@@ -276,9 +274,8 @@ if __name__ == "__main__":
         ingress = yaml.safe_load(f)
 
     ingress_chat_scoring = None
-    if args.env != "prod2":
-        with open(ingress_chat_scoring_path, "r") as f:
-            ingress_chat_scoring = yaml.safe_load(f)
+    with open(ingress_chat_scoring_path, "r") as f:
+        ingress_chat_scoring = yaml.safe_load(f)
 
     # Deployment files
     with open(deployment_path, "r") as f:
@@ -289,14 +286,12 @@ if __name__ == "__main__":
 
 
     deployment_picture_submission = None
-    if args.env != "prod2":
-        with open(picture_submission_path, "r") as f:
-            deployment_picture_submission = yaml.safe_load(f)
+    with open(picture_submission_path, "r") as f:
+        deployment_picture_submission = yaml.safe_load(f)
 
     deployment_chat_scoring = None
-    if args.env != "prod2":
-        with open(chat_scoring_deployment_path, "r") as f:
-            deployment_chat_scoring = yaml.safe_load(f)
+    with open(chat_scoring_deployment_path, "r") as f:
+        deployment_chat_scoring = yaml.safe_load(f)
 
     with open(challenge_home_path, "r") as f:
         challenge_home_deployment = yaml.safe_load(f)
@@ -314,9 +309,8 @@ if __name__ == "__main__":
         service_picture_submission_yml = yaml.safe_load(f)
 
     service_chat_scoring_yml = None
-    if args.env != "prod2":
-        with open(chat_scoring_service_path, "r") as f:
-            service_chat_scoring_yml = yaml.safe_load(f)
+    with open(chat_scoring_service_path, "r") as f:
+        service_chat_scoring_yml = yaml.safe_load(f)
 
     # Load the challenge json file
     with open(args.file, "r") as f:
@@ -522,9 +516,7 @@ if __name__ == "__main__":
             else:
                 url = ""
                 if args.env == "prod":
-                    url = f"https://airt-in-practice.westus3.cloudapp.azure.com/challenge/{challenge['challenge_id']}/"
-                elif args.env == "prod2":
-                    url = f"https://airt-in-practice2.westus3.cloudapp.azure.com/challenge/{challenge['challenge_id']}/"
+                    url = f"https://ai-red-teaming-playground-labs.westus3.cloudapp.azure.com/challenge/{challenge['challenge_id']}/"
                 description = challenge["goal"]
                 if "disclaimer" in challenge and challenge["disclaimer"]:
                     description = "**Disclaimer:** This challenge contains content that might be offensive for some people. If you don't feel comfortable with this material, please don't continue and attempt the challenge.\n\n" + description

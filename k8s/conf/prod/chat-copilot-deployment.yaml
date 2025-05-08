@@ -62,7 +62,7 @@ spec:
                   key: scoring_apikey
 
 #            - name: Challenge__Ctfd__RedirectUrl
-#              value: "https://airt-in-practice.westus3.cloudapp.azure.com/login"
+#              value: "https://ai-red-teaming-playground-labs.westus3.cloudapp.azure.com/login"
 #            
 #            - name: Challenge__Ctfd__CtfdUrl
 #              value: "http://ctfd-service:8000"#
@@ -140,7 +140,7 @@ spec:
               value: gpt-4o-blackhat
 
             - name: AllowedOrigins
-              value: https://airt-in-practice.westus3.cloudapp.azure.com/login
+              value: https://ai-red-teaming-playground-labs.westus3.cloudapp.azure.com/login
 
             - name: Kestrel__Endpoints__Http__Url
               value: http://0.0.0.0:4000

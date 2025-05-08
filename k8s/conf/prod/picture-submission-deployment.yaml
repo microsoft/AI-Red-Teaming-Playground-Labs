@@ -44,7 +44,7 @@ spec:
               value: "ctfd"
 
             - name: FLASK_AUTH_SETTINGS__CTFD__REDIRECT_URL
-              value: "https://airt-in-practice.westus3.cloudapp.azure.com/login"
+              value: "https://ai-red-teaming-playground-labs.westus3.cloudapp.azure.com/login"
 
             - name: FLASK_AUTH_SETTINGS__CTFD__CTFD_URL
               value: "http://ctfd-service:8000"

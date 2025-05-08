@@ -16,10 +16,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        -  airt-in-practice.westus3.cloudapp.azure.com
+        -  ai-red-teaming-playground-labs.westus3.cloudapp.azure.com
       secretName: airt-practice-tls
   rules:
-    - host: airt-in-practice.westus3.cloudapp.azure.com
+    - host: ai-red-teaming-playground-labs.westus3.cloudapp.azure.com
       http:
         paths:
           - path: /
