@@ -12,9 +12,9 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <Title1>AI Red Teaming in Practice</Title1>
+        <Title1>AI Red Teaming Playground Labs</Title1>
         <div style={styles}>
-          <Body2>Welcome to AI Red Teaming in Practice. You will find below the challenges that are available. You can try a challenge and come back here once the challenge is completed.</Body2>
+          <Body2>Welcome to the AI Red Teaming Playground Labs. You will find below the challenges that are available. You can try a challenge and come back here once the challenge is completed.</Body2>
         </div>
         <SortControlled></SortControlled>
       </div>
