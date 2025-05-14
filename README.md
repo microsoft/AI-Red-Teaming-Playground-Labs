@@ -27,7 +27,11 @@ docker-compose up
 If you would like to change the challenges, you can do so by changing the `challenges/challenges.json` file. This file contains the description of the challenges and their objectives. You can then use the script `generate.py` to generate the new docker-compose file with the new challenges and their configuration.
 
 ```
-cd challenges && python generate.py challenges.json
+cd challenges
+python -m venv .env
+source .env/bin/activate
+pip install -r requirements.txt
+python generate.py challenges.json
 ```
 
 ## Components
