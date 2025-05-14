@@ -25,7 +25,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
@@ -52,7 +52,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
@@ -79,7 +79,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
@@ -106,7 +106,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
@@ -133,7 +133,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
@@ -160,7 +160,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
@@ -187,7 +187,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
@@ -214,7 +214,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
@@ -241,7 +241,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
@@ -268,7 +268,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
@@ -295,7 +295,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
@@ -322,7 +322,7 @@ services:
     - KernelMemory__Services__AzureOpenAIText__APIKey=${AOAI_API_KEY}
     - KernelMemory__Services__AzureOpenAIText__Deployment=${AOAI_MODEL_NAME}
     - KernelMemory__Services__AzureOpenAIText__Endpoint=${AOAI_ENDPOINT}
-    - KernelMemory__ImageOcrType=Tesseract
+    - KernelMemory__ImageOcrType=None
     - KernelMemory__DataIngestion__EmbeddingGeneratorTypes__0__=AzureOpenAI
     - ChatStore__Type=filesystem
     - Challenge__MetapromptLeak=false
