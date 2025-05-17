@@ -10,7 +10,7 @@ colorama==0.4.6
 cryptography==43.0.1
 dataclasses-json==0.6.7
 Flask==3.0.3
-Flask-Cors==5.0.0
+Flask-Cors==6.0.0
 idna==3.8
 isodate==0.6.1
 itsdangerous==2.2.0
