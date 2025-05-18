@@ -75,3 +75,9 @@ The playground environment uses the following components:
 ## Deployment
 
 Originally, these challenges were deployed in Kubernetes in Azure. The Kubernetes deployment files are included in the repository for reference. They are located in the `k8s` folder. The deployment was done with the help of the deploy.py script. This script would use the Kubernetes template and make the required changes for which challenges we needed to deploy based on a single JSON file that contained the challenge description.
+
+## Contribute to the community!
+
+- More information on our AI red teaming tool (PyRIT) is available at https://azure.github.io/PyRIT
+- Join the PyRIT Discord at https://discord.gg/wwRaYre8kR 
+
