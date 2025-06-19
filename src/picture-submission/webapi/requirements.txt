@@ -32,6 +32,6 @@ requests==2.32.3
 six==1.16.0
 typing-inspect==0.9.0
 typing_extensions==4.12.2
-urllib3==2.2.2
+urllib3==2.5.0
 Werkzeug==3.0.4
 StrEnum==0.4.15
