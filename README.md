@@ -80,7 +80,7 @@ Originally, these challenges were deployed in Kubernetes in Azure. The Kubernete
 
 ## Related Content
 
-- PyRIT Website: https://azure.github.io/PyRIT
-- Join the PyRIT Discord: https://discord.gg/wwRaYre8kR
-- Microsoft AI Red Team Overview: https://learn.microsoft.com/en-us/security/ai-red-team/
+- [PyRIT Website](https://azure.github.io/PyRIT)
+- [Join the PyRIT Discord](https://discord.gg/wwRaYre8kR)
+- [Microsoft AI Red Team Overview](https://aka.ms/airedteam)
 
