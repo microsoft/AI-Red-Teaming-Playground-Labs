@@ -1,12 +1,13 @@
 # AI Red Teaming Playground Labs
 
-This repository contains the challenges for the labs that were used in the course AI Red Teaming in Practice. The course was originally taught at [Black Hat USA 2024](https://www.blackhat.com/us-24/training/schedule/index.html#ai-red-teaming-in-practice-37464) by [Dr. Amanda Minnich](https://www.amandaminnich.info/) and [Gary Lopez](https://www.linkedin.com/in/gary-l-76501814a). [Martin Pouliot](https://www.linkedin.com/in/martin-pouliot-266ab0105/) handled the infrastructure and scoring for the challenges. The challenges were designed by Dr. Amanda Minnich, Gary Lopez and Martin Pouliot. These challenges are no longer used for future courses, but they are available for anyone to use. The playground environment is based on [Chat Copilot](https://github.com/microsoft/chat-copilot). It was modified to be used in the course.
+This repository contains the challenges for the labs used in the course "AI Red Teaming in Practice". The course was originally taught at [Black Hat USA 2024](https://www.blackhat.com/us-24/training/schedule/index.html#ai-red-teaming-in-practice-37464) by [Dr. Amanda Minnich](https://www.amandaminnich.info/) and [Gary Lopez](https://www.linkedin.com/in/gary-l-76501814a). [Martin Pouliot](https://www.linkedin.com/in/martin-pouliot-266ab0105/) handled the infrastructure and scoring for the challenges. The challenges were designed by Dr. Amanda Minnich, Gary Lopez and Martin Pouliot. These challenges are available for anyone to use. The playground environment is based on [Chat Copilot](https://github.com/microsoft/chat-copilot) and was modified to be used in the course.
 
+These challenges are also referenced in the [Microsoft Learn Limited Series: AI Red Teaming 101](https://review.learn.microsoft.com/en-us/security/ai-red-team/training), released on July 9, 2025. In the table of challenges below, you will find the relevant video link to each challenge from the series. During Microsoft Build in May 2025, several of these challenges were automated by the [Python Risk Identification Tool (PyRIT)](https://aka.ms/pyrit), which is an open-source framework built to empower security professionals and engineers to proactively identify risks in generative AI systems. This repository contains the [corresponding Jupyter Notebooks](https://github.com/microsoft/AI-Red-Teaming-Playground-Labs/tree/main/notebooks) showcasing how to use PyRIT to solve the challenges for Labs 1 and 5. You will also see a notebook for "Lab 13", which does not have an associated challenge as it is notebook-only.
+
+## What You Will Learn
 These challenges are designed to teach security professionals to systematically red team AI systems. They go beyond traditional security failures by incorporating novel adversarial machine learning and Responsible AI (RAI) failures, enabling a holistic approach to identifying potential issues before an AI system is deployed.
 
-#### Note: If you attended the PyRIT labs held as part of Microsoft Build in May 2025, the challenges contained in that lab are 1, 5, and 13 in this repo (13 is notebook only).
-
-## List of challenges within the AI Red Team Playground Labs
+## Challenges
 
 | Lab ID | Name | Category | Difficulty | Description | AI Red Teaming 101 Video | PyRIT Notebook |
 |-----|----------------|---------------|-----------|-----------------------------------------------------------------------------------------------------------------------|---------|-------------|
@@ -77,8 +78,9 @@ The playground environment uses the following components:
 
 Originally, these challenges were deployed in Kubernetes in Azure. The Kubernetes deployment files are included in the repository for reference. They are located in the `k8s` folder. The deployment was done with the help of the deploy.py script. This script would use the Kubernetes template and make the required changes for which challenges we needed to deploy based on a single JSON file that contained the challenge description.
 
-## Contribute to the community!
+## Related Content
 
-- More information on our AI red teaming tool (PyRIT) is available at https://azure.github.io/PyRIT
-- Join the PyRIT Discord at https://discord.gg/wwRaYre8kR 
+- PyRIT Website: https://azure.github.io/PyRIT
+- Join the PyRIT Discord: https://discord.gg/wwRaYre8kR
+- Microsoft AI Red Team Overview: https://learn.microsoft.com/en-us/security/ai-red-team/
 
