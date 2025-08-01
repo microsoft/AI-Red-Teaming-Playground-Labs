@@ -31,20 +31,58 @@ These challenges are designed to teach security professionals to systematically 
 
 - [Docker](https://docs.docker.com/get-docker/) installed
 - [Python 3.8+](https://www.python.org/downloads/) installed
-- [Azure OpenAI Endpoint](https://azure.microsoft.com/en-us/products/ai-services/openai-service) endpoint with an api-key
-- An Azure Foundry deployment named `text-embedding-ada-002` using the model `text-embedding-ada-002`, as well as the model you intend to use. Ex: `gpt-4o`
+- **Option 1:** [Azure OpenAI Endpoint](https://azure.microsoft.com/en-us/products/ai-services/openai-service) endpoint with an api-key
+- **Option 2:** [OpenAI API Key](https://platform.openai.com/api-keys) to use the standard OpenAI API
+- For Azure OpenAI: An Azure Foundry deployment named `text-embedding-ada-002` using the model `text-embedding-ada-002`, as well as the model you intend to use. Ex: `gpt-4o`
 
-### Environment Variables
+### Configuration
+
+#### Option 1: Using Azure OpenAI (docker-compose.yaml)
 
 You can set the environment variables for the Azure OpenAI endpoint in the `.env` file. Please use the `.env.example` file as a template.
 
+#### Option 2: Using Standard OpenAI API (docker-compose-openai.yaml)
+
+If you prefer to use the standard OpenAI API, you need to configure the following environment variables:
+
+```bash
+export OPENAI_API_KEY="your-openai-api-key"
+export OPENAI_TEXT_MODEL="gpt-4o"  # or the model of your choice
+export OPENAI_EMBEDDING_MODEL="text-embedding-ada-002"
+export AUTH_KEY="your-auth-key"
+export SECRET_KEY="your-secret-key"
+```
+
 ### Running the Playground Labs
+
+#### Option 1: With Azure OpenAI
 
 The easiest way to run the playground labs is to use the [Docker Compose](https://docs.docker.com/compose/) file included in this repository. This will start all the components needed to run the playground environment with a set of 12 challenges.
 
-```
+```bash
 docker-compose up
 ```
+
+#### Option 2: With Standard OpenAI API
+
+To use the standard OpenAI API instead of Azure OpenAI, use the `docker-compose-openai.yaml` file:
+
+```bash
+docker compose -f docker-compose-openai.yaml up
+```
+
+**Advantages of this configuration:**
+- Simpler to configure (no need for Azure deployment)
+- Uses OpenAI API directly
+- All 12 labs are available on ports 4001-4012
+- Interface accessible via `http://localhost:5000`
+
+**Required environment variables:**
+- `OPENAI_API_KEY`: Your OpenAI API key
+- `OPENAI_TEXT_MODEL`: Text model (e.g., `gpt-4o`, `gpt-3.5-turbo`)
+- `OPENAI_EMBEDDING_MODEL`: Embedding model (recommended: `text-embedding-ada-002`)
+- `AUTH_KEY`: Custom authentication key
+- `SECRET_KEY`: Secret key for session security
 
 ### Changing the Challenges
 
@@ -83,4 +121,3 @@ Originally, these challenges were deployed in Kubernetes in Azure. The Kubernete
 - [PyRIT Website](https://azure.github.io/PyRIT)
 - [Join the PyRIT Discord](https://discord.gg/wwRaYre8kR)
 - [Microsoft AI Red Team Overview](https://aka.ms/airedteam)
-
