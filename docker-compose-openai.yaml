@@ -1,5 +1,5 @@
-# Configuration pour utiliser l'API OpenAI standard au lieu d'Azure OpenAI
-# Utilisation: docker compose -f docker-compose-openai.yaml up
+# OpenAI API configuration instead of Azure OpenAI
+# Usage: docker compose -f docker-compose-openai.yaml up
 
 services:
   challenge-home:
@@ -22,7 +22,7 @@ services:
     ports:
     - 127.0.0.1:4001:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -52,7 +52,7 @@ services:
     ports:
     - 127.0.0.1:4002:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -82,7 +82,7 @@ services:
     ports:
     - 127.0.0.1:4003:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -112,7 +112,7 @@ services:
     ports:
     - 127.0.0.1:4004:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -142,7 +142,7 @@ services:
     ports:
     - 127.0.0.1:4005:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -172,7 +172,7 @@ services:
     ports:
     - 127.0.0.1:4006:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -202,7 +202,7 @@ services:
     ports:
     - 127.0.0.1:4007:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -232,7 +232,7 @@ services:
     ports:
     - 127.0.0.1:4008:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -262,7 +262,7 @@ services:
     ports:
     - 127.0.0.1:4009:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -292,7 +292,7 @@ services:
     ports:
     - 127.0.0.1:4010:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -322,7 +322,7 @@ services:
     ports:
     - 127.0.0.1:4011:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -352,7 +352,7 @@ services:
     ports:
     - 127.0.0.1:4012:4000
     environment:
-    # Configuration pour OpenAI standard
+    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}

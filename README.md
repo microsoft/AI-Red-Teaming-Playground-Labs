@@ -71,18 +71,11 @@ To use the standard OpenAI API instead of Azure OpenAI, use the `docker-compose-
 docker compose -f docker-compose-openai.yaml up
 ```
 
-**Advantages of this configuration:**
-- Simpler to configure (no need for Azure deployment)
-- Uses OpenAI API directly
-- All 12 labs are available on ports 4001-4012
-- Interface accessible via `http://localhost:5000`
+### Accessing the Challenges
 
-**Required environment variables:**
-- `OPENAI_API_KEY`: Your OpenAI API key
-- `OPENAI_TEXT_MODEL`: Text model (e.g., `gpt-4o`, `gpt-3.5-turbo`)
-- `OPENAI_EMBEDDING_MODEL`: Embedding model (recommended: `text-embedding-ada-002`)
-- `AUTH_KEY`: Custom authentication key
-- `SECRET_KEY`: Secret key for session security
+Once the challenges are running you can access them using the following url: `http://localhost:5000/login?auth=[YOUR-AUTH-KEY]`. 
+
+On macOS you will need to access `http://127.0.0.1:5000/login?=[YOUR-AUTH-KEY]` because localhost maps to IPv6 and the containers are listening on IPv4.
 
 ### Changing the Challenges
 
