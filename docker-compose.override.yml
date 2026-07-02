@@ -1,0 +1,97 @@
+services:
+  chat-copilot-1:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
+  chat-copilot-2:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
+  chat-copilot-3:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
+  chat-copilot-4:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
+  chat-copilot-5:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
+  chat-copilot-6:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
+  chat-copilot-7:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
+  chat-copilot-8:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
+  chat-copilot-9:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
+  chat-copilot-10:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
+  chat-copilot-11:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
+  chat-copilot-12:
+    environment:
+      - KernelMemory__Services__AzureOpenAIText__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIEmbedding__Auth=AzureIdentity
+      - KernelMemory__Services__AzureOpenAIText__Deployment=gpt-4.1
+      - KernelMemory__Services__AzureOpenAIEmbedding__Deployment=text-embedding-ada-002
+    volumes:
+      - C:\Users\diogo.vida/.azure:/root/.azure:ro
