@@ -30,8 +30,11 @@ RUN cd webapi && \
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=builder-webapi /app .
-RUN apt-get update && \
-  apt-get install -y libleptonica-dev libtesseract-dev libc6-dev libjpeg62-turbo-dev libgdiplus && \
+# Bullseye is EOL; the live security index references packages no longer available.
+# Use the snapshot mirrors that the image already lists (commented out).
+RUN sed -i '/^deb http:\/\/deb.debian.org/d; s|^# deb http://snapshot|deb http://snapshot|' /etc/apt/sources.list && \
+  apt-get -o Acquire::Check-Valid-Until=false update && \
+  apt-get -o Acquire::Check-Valid-Until=false install -y libleptonica-dev libtesseract-dev libc6-dev libjpeg62-turbo-dev libgdiplus && \
   ln -s /usr/lib/x86_64-linux-gnu/liblept.so.5 x64/libleptonica-1.82.0.so && \
   ln -s /usr/lib/x86_64-linux-gnu/libtesseract.so.4.0.1 x64/libtesseract50.so && \
   mkdir -p /app/wwwroot
