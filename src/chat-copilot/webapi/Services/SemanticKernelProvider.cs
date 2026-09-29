@@ -84,7 +84,7 @@ public sealed class SemanticKernelProvider
                 builder.WithOpenAIChatCompletionService(
                     openAIOptions.TextModel,
                     openAIOptions.APIKey,
-                    httpClient: httpClientFactory.CreateClient());
+                    httpClient: httpClientFactory.CreateClient("OpenAICompatible"));
 #pragma warning restore CA2000
                 break;
 
@@ -127,7 +127,7 @@ public sealed class SemanticKernelProvider
                 builder.WithOpenAIChatCompletionService(
                     plannerOptions.Model,
                     openAIOptions.APIKey,
-                    httpClient: httpClientFactory.CreateClient());
+                    httpClient: httpClientFactory.CreateClient("OpenAICompatible"));
 #pragma warning restore CA2000
                 break;
 
@@ -170,7 +170,7 @@ public sealed class SemanticKernelProvider
                 builder.WithOpenAITextEmbeddingGenerationService(
                     openAIOptions.EmbeddingModel,
                     openAIOptions.APIKey,
-                    httpClient: httpClientFactory.CreateClient());
+                    httpClient: httpClientFactory.CreateClient("OpenAICompatible"));
 #pragma warning restore CA2000
                 break;
 

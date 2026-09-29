@@ -49,6 +49,9 @@ If you prefer to use the standard OpenAI API, you need to configure the followin
 export OPENAI_API_KEY="your-openai-api-key"
 export OPENAI_TEXT_MODEL="gpt-4o"  # or the model of your choice
 export OPENAI_EMBEDDING_MODEL="text-embedding-ada-002"
+# Optional HTTPS OpenAI-compatible endpoint for Lab chat, planner, and embeddings.
+# Leave unset to use api.openai.com.
+# export OPENAI_BASE_URL="https://openrouter.ai/api/v1"
 export AUTH_KEY="your-auth-key"
 export SECRET_KEY="your-secret-key"
 ```

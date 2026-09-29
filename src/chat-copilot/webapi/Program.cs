@@ -35,9 +35,25 @@ public sealed class Program
     public static async Task Main(string[] args)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
         // Load in configuration settings from appsettings.json, user-secrets, key vaults, etc...
         builder.Host.AddConfiguration();
+
+        // Configure HTTP clients before semantic services build their service provider.
+        builder.Services.AddHttpClient();
+        string? openAIBaseUrl = builder.Configuration["OPENAI_BASE_URL"];
+        if (!string.IsNullOrWhiteSpace(openAIBaseUrl))
+        {
+            Uri openAIBaseUri = OpenAIEndpointHandler.ParseBaseUrl(openAIBaseUrl);
+            builder.Services.AddTransient(sp => new OpenAIEndpointHandler(openAIBaseUri));
+            builder.Services.AddHttpClient("OpenAICompatible")
+                .AddHttpMessageHandler<OpenAIEndpointHandler>();
+        }
+        builder.Services.AddHttpClient("Plugin", httpClient =>
+        {
+            int timeout = int.Parse(builder.Configuration["Planner:PluginTimeoutLimitInS"] ?? "100", CultureInfo.InvariantCulture);
+            httpClient.Timeout = TimeSpan.FromSeconds(timeout);
+        });
+
         builder.WebHost.UseUrls(); // Disables endpoint override warning message when using IConfiguration for Kestrel endpoint.
 
         // Add in configuration options and required services.
@@ -71,14 +87,6 @@ public sealed class Program
             .AddSingleton<ITelemetryService, AppInsightsTelemetryService>();
 
         TelemetryDebugWriter.IsTracingDisabled = Debugger.IsAttached;
-
-        // Add named HTTP clients for IHttpClientFactory
-        builder.Services.AddHttpClient();
-        builder.Services.AddHttpClient("Plugin", httpClient =>
-        {
-            int timeout = int.Parse(builder.Configuration["Planner:PluginTimeoutLimitInS"] ?? "100", CultureInfo.InvariantCulture);
-            httpClient.Timeout = TimeSpan.FromSeconds(timeout);
-        });
 
         // Add in the rest of the services.
         builder.Services
