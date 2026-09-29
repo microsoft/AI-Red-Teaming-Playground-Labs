@@ -25,6 +25,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10
@@ -55,6 +56,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10
@@ -85,6 +87,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10
@@ -115,6 +118,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10
@@ -145,6 +149,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10
@@ -175,6 +180,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10
@@ -205,6 +211,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10
@@ -235,6 +242,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10
@@ -265,6 +273,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10
@@ -295,6 +304,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10
@@ -325,6 +335,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10
@@ -355,6 +366,7 @@ services:
     # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
+    - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
     - KernelMemory__Services__OpenAI__EmbeddingModel=${OPENAI_EMBEDDING_MODEL}
     - KernelMemory__Services__OpenAI__MaxRetries=10

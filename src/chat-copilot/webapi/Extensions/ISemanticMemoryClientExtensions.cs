@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CopilotChat.Shared;
@@ -14,6 +15,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.KernelMemory;
+using Microsoft.KernelMemory.AI;
+using Microsoft.SemanticKernel.Connectors.AI.OpenAI.TextEmbedding;
 
 namespace CopilotChat.WebApi.Extensions;
 
@@ -42,6 +45,21 @@ internal static class ISemanticMemoryClientExtensions
         appBuilder.Services.AddSingleton(sp => new DocumentTypeProvider(hasOcr));
 
         var memoryBuilder = new KernelMemoryBuilder(appBuilder.Services);
+        string openAIBaseUrl = appBuilder.Configuration["OPENAI_BASE_URL"] ?? string.Empty;
+        if (!string.IsNullOrWhiteSpace(openAIBaseUrl) &&
+            memoryConfig.TextGeneratorType.Equals("OpenAI", StringComparison.OrdinalIgnoreCase))
+        {
+            var openAIConfig = memoryConfig.GetServiceConfig<OpenAIConfig>(appBuilder.Configuration, "OpenAI");
+            var httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
+            memoryConfig.TextGeneratorType = "Custom";
+            memoryConfig.Retrieval.EmbeddingGeneratorType = "Custom";
+            memoryConfig.DataIngestion.EmbeddingGeneratorTypes.Clear();
+            memoryConfig.DataIngestion.EmbeddingGeneratorTypes.Add("Custom");
+            memoryBuilder.WithCustomTextGeneration(new OpenAICompatibleTextGeneration(
+                openAIConfig.APIKey, openAIConfig.TextModel, httpClientFactory.CreateClient("OpenAICompatible")));
+            memoryBuilder.WithCustomEmbeddingGeneration(new OpenAITextEmbeddingGeneration(
+                openAIConfig.EmbeddingModel, openAIConfig.APIKey, httpClient: httpClientFactory.CreateClient("OpenAICompatible")));
+        }
 
         if (isDistributed)
         {
