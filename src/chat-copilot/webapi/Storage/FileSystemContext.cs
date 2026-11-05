@@ -134,7 +134,7 @@ public class FileSystemContext<T> : IStorageContext<T> where T : IStorageEntity
 
             using FileStream fileStream = File.Open(
                 path: fileInfo.FullName,
-                mode: FileMode.OpenOrCreate,
+                mode: FileMode.Create,
                 access: FileAccess.Write,
                 share: FileShare.Read);
 
