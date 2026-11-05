@@ -267,7 +267,13 @@ public class ChatHistoryController : ControllerBase
             }
 
             chat!.Title = chatParameters.Title ?? chat!.Title;
-            chat!.SystemDescription = chatParameters.SystemDescription ?? chat!.SafeSystemDescription;
+            // Hidden descriptions are sent to clients as an empty string and
+            // echoed by ordinary edits. Keep that value unchanged unless
+            // disclosure is enabled; non-empty values are explicit replacements.
+            if (this._challengeOptions.MetapromptLeak || !string.IsNullOrEmpty(chatParameters.SystemDescription))
+            {
+                chat!.SystemDescription = chatParameters.SystemDescription ?? chat!.SafeSystemDescription;
+            }
             chat!.MemoryBalance = chatParameters.MemoryBalance ?? chat!.MemoryBalance;
             await this._sessionRepository.UpsertAsync(chat);
             await messageRelayHubContext.Clients.Group(chatId.ToString()).SendAsync(ChatEditedClientCall, this._metapromptSanitize.ChatSession(chat));
