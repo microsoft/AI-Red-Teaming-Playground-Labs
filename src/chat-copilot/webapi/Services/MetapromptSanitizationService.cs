@@ -21,6 +21,9 @@ public class MetapromptSanitizationService : IMetapromptSanitizationService
 
     public ChatSession ChatSession(ChatSession chatSession)
     {
+        // Storage and the repository cache return shared instances. Redact a
+        // copy so stored instructions and CTFd auth data remain unchanged.
+        chatSession = (ChatSession)chatSession.Clone();
         var metapromtLeak = this._challengeOptions.MetapromptLeak;
         if (!metapromtLeak)
         {
